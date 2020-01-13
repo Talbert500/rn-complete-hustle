@@ -1,22 +1,70 @@
 import React from 'react';
 import {View, Text, FlatList, StyleSheet, Button} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Colors from '../../constants/Colors';
+import CartItem from '../../components/shop/CartItem';
+import Card from '../../components/UI/Card';
+import * as cartActions from '../../store/actions/cart';
+import * as orderActions from '../../store/actions/orders';
 
 const CartScreen = props => {
   const cartTotalAmount = useSelector(state => state.cart.totalAmount);
+  const cartItems = useSelector(state => {
+    const transformedCartItems = [];
+    for (const key in state.cart.items) {
+      transformedCartItems.push({
+        serviceId: key,
+        serviceTitle: state.cart.items[key].serviceTitle,
+        servicePrice: state.cart.items[key].servicePrice,
+        quantity: state.cart.items[key].quantity,
+        sum: state.cart.items[key].sum,
+      });
+    }
+    return transformedCartItems.sort((a, b) =>
+      a.serviceId > b.serviceId ? 1 : -1
+    );
+  });
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.screen}>
-      <View style={styles.summary}>
+      <Card style={styles.summary}>
         <Text style={styles.summaryText}>
-          Total:<Text style={styles.amount}>${cartTotalAmount}</Text>
+          Total:
+          <Text style={styles.amount}>
+            ${Math.round((cartTotalAmount.toFixed(2) * 100) / 100)}
+          </Text>
         </Text>
-        <Button title="Order Now" />
-      </View>
-      <Text>Cart Items</Text>
-      <FlatList />
+        <Button
+          color={Colors.accent}
+          title="Order Now"
+          disabled={cartItems.length === 0}
+          onPress={() => {
+            dispatch(orderActions.addOrder(cartItems, cartTotalAmount));
+          }}
+        />
+      </Card>
+      <FlatList
+        data={cartItems}
+        keyExtractor={item => item.serviceId}
+        renderItem={itemData => (
+          <CartItem
+            quantity={itemData.item.quantity}
+            title={itemData.item.serviceTitle}
+            amount={itemData.item.sum}
+            deletable
+            onRemove={() => {
+              dispatch(cartActions.removeFromCart(itemData.item.serviceId));
+            }}
+          />
+        )}
+      />
     </View>
   );
+};
+
+CartScreen.navigationOptions = {
+  headerTitle: 'Your Orders',
 };
 
 const styles = StyleSheet.create({
@@ -24,13 +72,6 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   summary: {
-    shadowColor: 'black',
-    shadowOpacity: 0.26,
-    shadowOffset: {width: 0, height: 2},
-    elevation: 5,
-    shadowRadius: 8,
-    borderRadius: 10,
-    backgroundColor: Colors.white,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -42,7 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   amount: {
-    color: Colors.accent,
+    color: Colors.primary,
   },
 });
 

@@ -3,7 +3,7 @@ import Service from '../models/service';
 const SERVICES = [
   new Service(
     'p1',
-    'u1',
+    'u2',
     'Personal Nutritionist',
     'https://i.pinimg.com/originals/ab/f7/a5/abf7a58af7c21845bf367d8fb6d7a1ef.jpg',
     'I will create a professional diet and workout plan for you',
@@ -11,7 +11,7 @@ const SERVICES = [
   ),
   new Service(
     'p2',
-    'u2',
+    'u1',
     'Resume Builder',
     'https://www.qceventplanning.com/wp-content/uploads/2015/12/Professional-event-planner-at-work.jpg',
     'I will help you build your resume',
@@ -27,7 +27,7 @@ const SERVICES = [
   ),
   new Service(
     'p4',
-    'u4',
+    'u1',
     'Calculus HELP',
     'https://uwcentralcarolinas.org/wp-content/uploads/2019/05/Tutoring-Featured-Image.jpg',
     'I will help you complete and understand calculus homework',
@@ -43,7 +43,7 @@ const SERVICES = [
   ),
   new Service(
     'p6',
-    'u6',
+    'u1',
     'NEED A Haircut??',
     'https://cdn.website.thryv.com/ad07e06f376548ce8d2bff408f3f4416/dms3rep/multi/mobile/AIM+barb+student+2.jpg',
     '15$ haircut do all hair styles',

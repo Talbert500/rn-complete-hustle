@@ -1,16 +1,19 @@
 import React, {useState} from 'react';
 import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
-import ShopNavigator from './navigation/ShopNavigator';
+
 import {AppLoading} from 'expo';
-import cartReducer from './store/reducers/cart';
 import * as Font from 'expo-font';
 
+import cartReducer from './store/reducers/cart';
 import serviceReducer from './store/reducers/services';
+import ordersReducer from './store/reducers/orders';
+import ShopNavigator from './navigation/ShopNavigator';
 
 const rootReducer = combineReducers({
   services: serviceReducer,
   cart: cartReducer,
+  orders: ordersReducer,
 });
 
 const store = createStore(rootReducer);

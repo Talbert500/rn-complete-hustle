@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, Image, Button, ScrollView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Colors from '../../constants/Colors';
-import * as cartActions from '../../store/actions/cart';
+import * as cartAction from '../../store/actions/cart';
 
 const ServiceDetailScreen = props => {
   const serviceId = props.navigation.getParam('serviceId');
@@ -19,7 +19,7 @@ const ServiceDetailScreen = props => {
           color={Colors.primary}
           title="Add To Card"
           onPress={() => {
-            dispatch(cartActions.addToCart(selectedService));
+            dispatch(cartAction.addToCart(selectedService));
           }}
         />
       </View>

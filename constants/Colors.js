@@ -5,7 +5,7 @@ export default {
   secondary: '#e71d36',
 };
 
-//https://coolors.co/011627-fdfffc-2ec4b6-e71d36-ff9f1c 9
+//https://coolors.co/011627-fdfffc-2ec4b6-e71d36-ff9f1c
 
 //011627 - MAASTRICHT BLUE
 //fdfffc - BABY POWDER
